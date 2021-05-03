@@ -29,6 +29,9 @@ exports.handler = async (event) => {
 
 	// Need to change return format to match reference
 	return {
+		headers: {
+			"Access-Control-Allow-Origin": "*" // Required for CORS support to work
+		},
 		statusCode: 200,
 		body: JSON.stringify(userInfo.UserAttributes),
 	};
