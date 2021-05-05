@@ -1,0 +1,5 @@
+{
+    "tableName": "amplifyIdentityBrokerClients",
+    "partitionKeyName": "client_id",
+    "partitionKeyType": "S"
+}

@@ -1,0 +1,787 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify-identity-broker-dev-115046-authRole",
+      "UnauthRoleArn": "arn:aws:iam::953067469207:role/amplify-amplify-identity-broker-dev-115046-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::953067469207:role/amplify-amplify-identity-broker-dev-115046-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+      "UnauthRoleName": "amplify-amplify-identity-broker-dev-115046-unauthRole",
+      "StackName": "amplify-amplify-identity-broker-dev-115046",
+      "StackId": "arn:aws:cloudformation:us-east-1:953067469207:stack/amplify-amplify-identity-broker-dev-115046/5488de10-ac27-11eb-b0aa-0adc781992e7",
+      "AmplifyAppId": "d1g896n3ue7fhd"
+    }
+  },
+  "auth": {
+    "amplifyIdentityBrokerAuth": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerCustomMessage",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerDefineAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerVerifyAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerCreateAuthChallenge",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/auth/amplifyIdentityBrokerAuth-cloudformation-template.yml",
+        "logicalId": "authamplifyIdentityBrokerAuth"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "CreatedSNSRole": "arn:aws:iam::953067469207:role/snsundefinedbroker-dev",
+        "AppClientSecret": "94ice8m87fv9bsb80f11uf6i0quukqpij5qjs18ved2cutqqu9c",
+        "UserPoolId": "us-east-1_hTcLOSQRS",
+        "AppClientIDWeb": "7hmpqanj1cdak3lt20ke75h5mj",
+        "AppClientID": "2ootjb2enj2nkfk8cebennc1p3",
+        "HostedUIDomain": "loyaltyoneidbroker-dev",
+        "OAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://injection.placeholder.amazon.com/\"],\"LogoutURLs\":[\"https://injection.placeholder.amazon.com/logout\"]}",
+        "UserPoolName": "brokeruserpool"
+      },
+      "lastPushDirHash": "kP1RJhcBD/NlfDQTOKwAAv9CvY8="
+    }
+  },
+  "hosting": {
+    "S3AndCloudFront": {
+      "service": "S3AndCloudFront",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "amplifyIdentityBrokerApi",
+          "attributes": [
+            "ApiDomain"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/hosting/template.json",
+        "logicalId": "hostingS3AndCloudFront"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "CloudFrontSecureURL": "https://d225vcv0q0iq0a.cloudfront.net",
+        "S3BucketSecureURL": "https://loyaltyone-hostingbucket-dev.s3.amazonaws.com",
+        "CloudFrontOriginAccessIdentity": "E35QC9U1NZ1SS2",
+        "WebsiteURL": "http://loyaltyone-hostingbucket-dev.s3-website-us-east-1.amazonaws.com",
+        "CloudFrontDistributionID": "EOD56MJFNIP3S",
+        "Region": "us-east-1",
+        "HostingBucketName": "loyaltyone-hostingbucket-dev",
+        "CloudFrontDomainName": "d225vcv0q0iq0a.cloudfront.net"
+      },
+      "lastPushDirHash": "TLr4wlSi7QkmfIW5yk9c2ZWQ8ms="
+    }
+  },
+  "kms": {
+    "amplifyIdentityBrokerTokenEncryptionKey": {
+      "service": "KMS",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerToken",
+          "attributes": [
+            "LambdaExecutionRoleArn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerStorage",
+          "attributes": [
+            "LambdaExecutionRoleArn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerAuthorize",
+          "attributes": [
+            "LambdaExecutionRoleArn"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/kms/amplifyIdentityBrokerTokenEncryptionKey-cloudformation-template.yml",
+        "logicalId": "kmsamplifyIdentityBrokerTokenEncryptionKey"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "KMSKeyID": "eac0b86a-b2df-4aeb-b0aa-7dcef94b1b53",
+        "KMSKeyAlias": "alias/amplifyIdentityBrokerTokenStorageKey-dev"
+      },
+      "lastPushDirHash": "Tbfi8DP27tjbxoULUT8R1QTr8VM="
+    }
+  },
+  "function": {
+    "amplifyIdentityBrokerPostDeployment": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifyIdentityBrokerAuth",
+          "attributes": [
+            "UserPoolId",
+            "AppClientID",
+            "AppClientIDWeb"
+          ]
+        },
+        {
+          "category": "hosting",
+          "resourceName": "S3AndCloudFront",
+          "attributes": [
+            "CloudFrontSecureURL"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerToken",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerStorage",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerAuthorize",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerCustomMessage",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerMigration",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerUserInfo",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerExposeJWKS",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerVerifyClient",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerAccountConfirmation",
+          "attributes": [
+            "Name"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerClients",
+          "attributes": [
+            "Name"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.309Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.665Z",
+      "distZipFilename": "amplifyIdentityBrokerPostDeployment-7970644e4f566443316e-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerPostDeployment-7970644e4f566443316e-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerPostDeployment-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerPostDeployment"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerPostDeployment-dev",
+        "HostedDomainDeployed": "https://d225vcv0q0iq0a.cloudfront.net",
+        "Name": "amplifyIdentityBrokerPostDeployment-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerPostDeploymentLambdaRole719106f6-dev"
+      },
+      "lastPushDirHash": "FLfc2akuTM0Mt6L+MIRwqun1RsM="
+    },
+    "amplifyIdentityBrokerCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.312Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.699Z",
+      "distZipFilename": "amplifyIdentityBrokerCustomMessage-4135714a5532527a7046-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerCustomMessage-4135714a5532527a7046-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerCustomMessage-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerCustomMessage"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerCustomMessage-dev",
+        "Name": "amplifyIdentityBrokerCustomMessage-dev",
+        "LambdaExecutionRole": "amplifyIdentityBrokerCustomMessage-dev"
+      },
+      "lastPushDirHash": "S6cLNSfrVJxthHZ/me2QReuOmdA="
+    },
+    "amplifyIdentityBrokerAuthorize": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "amplifyIdentityBrokerCodesTable",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "amplifyIdentityBrokerAuth",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.314Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:46.415Z",
+      "distZipFilename": "amplifyIdentityBrokerAuthorize-4a4f686447365759304b-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerAuthorize-4a4f686447365759304b-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerAuthorize-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerAuthorize"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::953067469207:role/amplifyidentitybrokerLambdaRole719106f6-dev",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerAuthorize-dev",
+        "Name": "amplifyIdentityBrokerAuthorize-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRole719106f6-dev"
+      },
+      "lastPushDirHash": "lPae2BHPyuX9bUamyrC5Oc92znQ="
+    },
+    "amplifyIdentityBrokerToken": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifyIdentityBrokerAuth",
+          "attributes": [
+            "AppClientIDWeb"
+          ]
+        },
+        {
+          "category": "storage",
+          "resourceName": "amplifyIdentityBrokerCodesTable",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.315Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.615Z",
+      "distZipFilename": "amplifyIdentityBrokerToken-4f6f6f58754465443775-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerToken-4f6f6f58754465443775-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerToken-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerToken"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::953067469207:role/amplifyidentitybrokerLambdaRole31b54ccd-dev",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerToken-dev",
+        "Name": "amplifyIdentityBrokerToken-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRole31b54ccd-dev"
+      },
+      "lastPushDirHash": "ar3dl+JeiW8D4a0ypk1GbUjVwCE="
+    },
+    "amplifyIdentityBrokerStorage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "amplifyIdentityBrokerCodesTable",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.317Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.610Z",
+      "distZipFilename": "amplifyIdentityBrokerStorage-6e2f4f655a5652456670-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerStorage-6e2f4f655a5652456670-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerStorage-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerStorage"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::953067469207:role/amplifyidentitybrokerLambdaRolea53a71b5-dev",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerStorage-dev",
+        "Name": "amplifyIdentityBrokerStorage-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRolea53a71b5-dev"
+      },
+      "lastPushDirHash": "J05zW0qH2HgRz+BDRoenaRTLefA="
+    },
+    "amplifyIdentityBrokerMigration": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifyIdentityBrokerAuth",
+          "attributes": [
+            "UserPoolId"
+          ]
+        },
+        {
+          "category": "auth",
+          "resourceName": "amplifyIdentityBrokerAuth",
+          "attributes": [
+            "AppClientID"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.319Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.599Z",
+      "distZipFilename": "amplifyIdentityBrokerMigration-566c39646d656137712b-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerMigration-566c39646d656137712b-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerMigration-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerMigration"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerMigration-dev",
+        "Name": "amplifyIdentityBrokerMigration-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRole2c6efead-dev"
+      },
+      "lastPushDirHash": "tGbfBdlKWUQZL87Lu1hbyvY8Nw4="
+    },
+    "amplifyIdentityBrokerUserInfo": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.321Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.634Z",
+      "distZipFilename": "amplifyIdentityBrokerUserInfo-53537871335a56787357-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerUserInfo-53537871335a56787357-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerUserInfo-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerUserInfo"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerUserInfo-dev",
+        "Name": "amplifyIdentityBrokerUserInfo-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRolecddc03a6-dev"
+      },
+      "lastPushDirHash": "ZcIX8EXJH0ZyzaU07fMkBz9gmt4="
+    },
+    "amplifyIdentityBrokerExposeJWKS": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifyIdentityBrokerAuth",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.322Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.619Z",
+      "distZipFilename": "amplifyIdentityBrokerExposeJWKS-43646e52376650796e55-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerExposeJWKS-43646e52376650796e55-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerExposeJWKS-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerExposeJWKS"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerExposeJWKS-dev",
+        "Name": "amplifyIdentityBrokerExposeJWKS-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRole386476a6-dev"
+      },
+      "lastPushDirHash": "VfdD1xcEw4ILmiQk2OwKgsVGZJI="
+    },
+    "amplifyIdentityBrokerVerifyClient": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "amplifyIdentityBrokerAuth",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.323Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.638Z",
+      "distZipFilename": "amplifyIdentityBrokerVerifyClient-56326b6a374977536e67-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerVerifyClient-56326b6a374977536e67-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerVerifyClient-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerVerifyClient"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerVerifyClient-dev",
+        "Name": "amplifyIdentityBrokerVerifyClient-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRolefbe79e03-dev"
+      },
+      "lastPushDirHash": "ZBIVwGr1y9GGPBmo0ddtUFBSH8Q="
+    },
+    "amplifyIdentityBrokerAccountConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.325Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.630Z",
+      "distZipFilename": "amplifyIdentityBrokerAccountConfirmation-6e6d73372b3131386561-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerAccountConfirmation-6e6d73372b3131386561-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerAccountConfirmation-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerAccountConfirmation"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerAccountConfirmation-dev",
+        "Name": "amplifyIdentityBrokerAccountConfirmation-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRole494058b9-dev"
+      },
+      "lastPushDirHash": "5oUQfRON5BQD1w6HMwgOfGp3JHk="
+    },
+    "amplifyIdentityBrokerClients": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "amplifyIdentityBrokerClientsTable",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.326Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.624Z",
+      "distZipFilename": "amplifyIdentityBrokerClients-44726e41726e4f794a73-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerClients-44726e41726e4f794a73-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerClients-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerClients"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerClients-dev",
+        "Name": "amplifyIdentityBrokerClients-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRole7925f85d-dev"
+      },
+      "lastPushDirHash": "lKsGszxXZoM1x5QG7IdL4CqDkZA="
+    },
+    "amplifyIdentityBrokerDefineAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.327Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.659Z",
+      "distZipFilename": "amplifyIdentityBrokerDefineAuthChallenge-48707673626f734b3647-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerDefineAuthChallenge-48707673626f734b3647-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerDefineAuthChallenge-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerDefineAuthChallenge"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerDefineAuthChallenge-dev",
+        "Name": "amplifyIdentityBrokerDefineAuthChallenge-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRole738b0dc5-dev"
+      },
+      "lastPushDirHash": "hEwlyrkUPGQDCiLNXVdMQTT46wE="
+    },
+    "amplifyIdentityBrokerVerifyAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.329Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.672Z",
+      "distZipFilename": "amplifyIdentityBrokerVerifyAuthChallenge-57574b5245697552384e-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerVerifyAuthChallenge-57574b5245697552384e-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerVerifyAuthChallenge-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerVerifyAuthChallenge"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerVerifyAuthChallenge-dev",
+        "Name": "amplifyIdentityBrokerVerifyAuthChallenge-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRole0c5c96c3-dev"
+      },
+      "lastPushDirHash": "/MnKICqETG5zSSK+Ci3odgWVDqE="
+    },
+    "amplifyIdentityBrokerCreateAuthChallenge": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [],
+      "lastBuildTimeStamp": "2021-05-03T15:52:45.331Z",
+      "lastPackageTimeStamp": "2021-05-03T15:52:45.690Z",
+      "distZipFilename": "amplifyIdentityBrokerCreateAuthChallenge-3262596b6c2f766b6b47-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplify-identity-broker-dev-115046-deployment",
+        "s3Key": "amplify-builds/amplifyIdentityBrokerCreateAuthChallenge-3262596b6c2f766b6b47-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/function/amplifyIdentityBrokerCreateAuthChallenge-cloudformation-template.json",
+        "logicalId": "functionamplifyIdentityBrokerCreateAuthChallenge"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "Region": "us-east-1",
+        "Arn": "arn:aws:lambda:us-east-1:953067469207:function:amplifyIdentityBrokerCreateAuthChallenge-dev",
+        "Name": "amplifyIdentityBrokerCreateAuthChallenge-dev",
+        "LambdaExecutionRole": "amplifyidentitybrokerLambdaRoledfa1229f-dev"
+      },
+      "lastPushDirHash": "A3ba7HnC9bR9pUwLl2TedCLntwM="
+    }
+  },
+  "api": {
+    "amplifyIdentityBrokerApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerAuthorize",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerToken",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerStorage",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerUserInfo",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerExposeJWKS",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerVerifyClient",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerAccountConfirmation",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerClients",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/api/amplifyIdentityBrokerApi-cloudformation-template.json",
+        "logicalId": "apiamplifyIdentityBrokerApi"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "ApiDomain": "n4ohr7voek.execute-api.us-east-1.amazonaws.com",
+        "ApiName": "amplifyIdentityBrokerApi",
+        "RootUrl": "https://n4ohr7voek.execute-api.us-east-1.amazonaws.com/dev",
+        "ApiId": "n4ohr7voek"
+      },
+      "lastPushDirHash": "HL7CRxabexElYLWVm1KOyNZbMJs="
+    }
+  },
+  "storage": {
+    "amplifyIdentityBrokerCodesTable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/storage/amplifyIdentityBrokerCodesTable-cloudformation-template.json",
+        "logicalId": "storageamplifyIdentityBrokerCodesTable"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "PartitionKeyName": "authorization_code",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:dynamodb:us-east-1:953067469207:table/amplifyIdentityBrokerCodes-dev",
+        "PartitionKeyType": "S",
+        "Name": "amplifyIdentityBrokerCodes-dev"
+      },
+      "lastPushDirHash": "FJa07bYZe47fFG0vnAjQ1Gdbuow="
+    },
+    "amplifyIdentityBrokerClientsTable": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify-identity-broker-dev-115046-deployment/amplify-cfn-templates/storage/amplifyIdentityBrokerClientsTable-cloudformation-template.json",
+        "logicalId": "storageamplifyIdentityBrokerClientsTable"
+      },
+      "lastPushTimeStamp": "2021-05-03T16:03:42.153Z",
+      "output": {
+        "PartitionKeyName": "client_id",
+        "Region": "us-east-1",
+        "Arn": "arn:aws:dynamodb:us-east-1:953067469207:table/amplifyIdentityBrokerClients-dev",
+        "PartitionKeyType": "S",
+        "Name": "amplifyIdentityBrokerClients-dev"
+      },
+      "lastPushDirHash": "9FBM3/sNzewKAv/C6Z9SThaE5ZQ="
+    }
+  }
+}

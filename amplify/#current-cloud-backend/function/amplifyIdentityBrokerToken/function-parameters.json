@@ -1,0 +1,12 @@
+{
+  "mutableParametersState": {
+    "permissions": {
+      "storage": {
+        "amplifyIdentityBrokerCodesTable": [
+          "read"
+        ]
+      }
+    }
+  },
+  "lambdaLayers": []
+}
