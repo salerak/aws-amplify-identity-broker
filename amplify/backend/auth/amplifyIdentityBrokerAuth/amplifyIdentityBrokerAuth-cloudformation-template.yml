@@ -457,7 +457,6 @@ Resources:
                 RefreshToken: minutes
             SupportedIdentityProviders:
                 - COGNITO
-            UserPoolId: !Ref UserPool
 
     # BEGIN USER POOL LAMBDA RESOURCES
     UserPoolClientRole:
