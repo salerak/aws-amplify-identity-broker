@@ -54,7 +54,7 @@
 	"authSelections": "userPoolOnly",
 	"resourceName": "amplifyIdentityBrokerAuth",
 	"usernameAttributes": [
-		"email, phone_number"
+		""
 	],
 	"userPoolGroups": false,
 	"adminQueries": false,
