@@ -392,6 +392,7 @@ Resources:
         DependsOn: [UserPoolResourceServerProfile,UserPool]
         Type: AWS::Cognito::UserPoolClient
         Properties:
+            UserPoolId: !Ref UserPool
             AccessTokenValidity: 60
             AllowedOAuthFlows:
                 - code
@@ -427,6 +428,7 @@ Resources:
         DependsOn: [UserPoolResourceServerProfile,UserPool]
         Type: AWS::Cognito::UserPoolClient
         Properties:
+            UserPoolId: !Ref UserPool
             AccessTokenValidity: 60
             AllowedOAuthFlows:
                 - client_credentials
