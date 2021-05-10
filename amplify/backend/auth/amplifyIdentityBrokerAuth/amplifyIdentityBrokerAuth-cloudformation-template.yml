@@ -314,7 +314,7 @@ Resources:
                 -   ScopeName: profile:delete
                     ScopeDescription: delete profile
             UserPoolId: !Ref UserPool
-            DependsOn: UserPool
+        DependsOn: UserPool
 
     UserPoolClientWeb:
         # Created provide application access to user pool
