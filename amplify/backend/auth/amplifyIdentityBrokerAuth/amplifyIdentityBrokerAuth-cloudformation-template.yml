@@ -339,7 +339,7 @@ Resources:
                 - openid
                 - profile
                 - aws.cognito.signin.user.admin
-        DependsOn: UserPool
+        DependsOn: [UserPoolResourceServerProfile,UserPool]
     UserPoolClient:
         # Created provide application access to user pool
         # Depends on UserPool for ID reference
@@ -364,7 +364,9 @@ Resources:
                 - openid
                 - profile
                 - aws.cognito.signin.user.admin
-        DependsOn: UserPool
+        DependsOn: [UserPoolResourceServerProfile,UserPool]
+
+
     # BEGIN USER POOL LAMBDA RESOURCES
     UserPoolClientRole:
         # Created to execute Lambda which gets userpool app client config values
