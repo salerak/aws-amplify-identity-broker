@@ -279,6 +279,7 @@ Resources:
                 - openid
                 - profile
                 - aws.cognito.signin.user.admin
+                - 'profile.audience.loyalty.com/profile:read'
         DependsOn:
             - UserPoolResourceServerProfile
             - UserPool
