@@ -301,6 +301,21 @@ Resources:
             FunctionName: !Ref functionamplifyIdentityBrokerCreateAuthChallengeName
             SourceArn: !GetAtt UserPool.Arn
 
+    UserPoolResourceServerProfile:
+        Type: AWS::Cognito::UserPoolResourceServer
+        Properties:
+            Identifier: profile.audience.loyalty.com
+            Name: Profile Audience
+            Scopes:
+                -   ScopeName: profile:read
+                    ScopeDescription: read profile
+                -   ScopeName: profile:write
+                    ScopeDescription: write profile
+                -   ScopeName: profile:delete
+                    ScopeDescription: delete profile
+            UserPoolId: !Ref UserPool
+            DependsOn: UserPool
+
     UserPoolClientWeb:
         # Created provide application access to user pool
         # Depends on UserPool for ID reference
