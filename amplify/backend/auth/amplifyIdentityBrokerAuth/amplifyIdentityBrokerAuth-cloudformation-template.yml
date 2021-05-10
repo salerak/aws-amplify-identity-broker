@@ -366,6 +366,96 @@ Resources:
                 - aws.cognito.signin.user.admin
         DependsOn: [UserPoolResourceServerProfile,UserPool]
 
+    UserPoolClientNoSecret:
+        DependsOn: [UserPoolResourceServerProfile,UserPool]
+        Type: AWS::Cognito::UserPoolClient
+        Properties:
+            UserPoolId: !Ref UserPool
+            AllowedOAuthFlowsUserPoolClient: false
+            ClientName: !Join
+                - ''
+                -   - !Ref 'env'
+                    - -app-client-no-secret
+            ExplicitAuthFlows:
+                - ALLOW_CUSTOM_AUTH
+                - ALLOW_USER_SRP_AUTH
+                - ALLOW_REFRESH_TOKEN_AUTH
+                - ALLOW_USER_PASSWORD_AUTH
+                - ALLOW_ADMIN_USER_PASSWORD_AUTH
+            GenerateSecret: false
+            RefreshTokenValidity: 3650
+            TokenValidityUnits: {}
+            SupportedIdentityProviders:
+                - COGNITO
+
+    UserPoolClientAppCodeFlow:
+        DependsOn: [UserPoolResourceServerProfile,UserPool]
+        Type: AWS::Cognito::UserPoolClient
+        Properties:
+            AccessTokenValidity: 60
+            AllowedOAuthFlows:
+                - code
+            AllowedOAuthFlowsUserPoolClient: true
+            AllowedOAuthScopes:
+                - phone
+                - email
+                - openid
+                - profile
+                - profile.audience.loyalty.com/profile:read
+            CallbackURLs:
+                - https://www.google.ca
+            ClientName: !Join
+                - ''
+                -   - !Ref 'env'
+                    - -app-code-flow
+            ExplicitAuthFlows:
+                - ALLOW_CUSTOM_AUTH
+                - ALLOW_USER_SRP_AUTH
+                - ALLOW_REFRESH_TOKEN_AUTH
+            GenerateSecret: true
+            IdTokenValidity: 60
+            PreventUserExistenceErrors: ENABLED
+            RefreshTokenValidity: 3650
+            TokenValidityUnits:
+                AccessToken: minutes
+                IdToken: minutes
+                RefreshToken: minutes
+            SupportedIdentityProviders:
+                - COGNITO
+
+    UserPoolClientM2MCFlow:
+        DependsOn: [UserPoolResourceServerProfile,UserPool]
+        Type: AWS::Cognito::UserPoolClient
+        Properties:
+            AccessTokenValidity: 60
+            AllowedOAuthFlows:
+                - client_credentials
+            AllowedOAuthFlowsUserPoolClient: true
+            AllowedOAuthScopes:
+                - profile.audience.loyalty.com/profile:read
+                - profile.audience.loyalty.com/profile:write
+                - profile.audience.loyalty.com/profile:delete
+            CallbackURLs:
+                - https://www.google.ca
+            ClientName: !Join
+                - ''
+                -   - !Ref 'env'
+                    - -app-client-credentials-m2m-flow
+            ExplicitAuthFlows:
+                - ALLOW_CUSTOM_AUTH
+                - ALLOW_USER_SRP_AUTH
+                - ALLOW_REFRESH_TOKEN_AUTH
+            GenerateSecret: true
+            IdTokenValidity: 60
+            PreventUserExistenceErrors: ENABLED
+            RefreshTokenValidity: 3650
+            TokenValidityUnits:
+                AccessToken: minutes
+                IdToken: minutes
+                RefreshToken: minutes
+            SupportedIdentityProviders:
+                - COGNITO
+            UserPoolId: !Ref UserPool
 
     # BEGIN USER POOL LAMBDA RESOURCES
     UserPoolClientRole:
