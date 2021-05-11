@@ -179,6 +179,14 @@ Resources:
                   Required: false
                   Mutable: true
                   AttributeDataType: Boolean
+                - Name: memberId
+                  AttributeDataType: String
+                  DeveloperOnlyAttribute: false
+                  Mutable: true
+                  Required: false
+                  StringAttributeConstraints:
+                  MinLength: '1'
+                  MaxLength: '256'
             LambdaConfig:
                 CustomMessage: !Ref functionamplifyIdentityBrokerCustomMessageArn
                 DefineAuthChallenge: !Ref functionamplifyIdentityBrokerDefineAuthChallengeArn
