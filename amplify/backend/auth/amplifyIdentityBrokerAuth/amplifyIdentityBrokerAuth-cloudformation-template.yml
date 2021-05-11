@@ -199,7 +199,7 @@ Resources:
                 PasswordPolicy:
                     MinimumLength: !Ref passwordPolicyMinLength
                     RequireLowercase: false
-                    RequireNumbers: false
+                    RequireNumbers: true
                     RequireSymbols: false
                     RequireUppercase: false
             MfaConfiguration: !Ref mfaConfiguration
