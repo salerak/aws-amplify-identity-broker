@@ -185,8 +185,8 @@ Resources:
                   Mutable: true
                   Required: false
                   StringAttributeConstraints:
-                  MinLength: '1'
-                  MaxLength: '256'
+                      MinLength: '1'
+                      MaxLength: '256'
             LambdaConfig:
                 CustomMessage: !Ref functionamplifyIdentityBrokerCustomMessageArn
                 DefineAuthChallenge: !Ref functionamplifyIdentityBrokerDefineAuthChallengeArn
