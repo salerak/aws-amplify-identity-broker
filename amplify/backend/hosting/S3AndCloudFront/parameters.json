@@ -1,4 +1,3 @@
 {
-    "bucketName": "loyaltyone-hostingbucket",
-    "apiamplifyIdentityBrokerApiApiDomain" : "loyaltycogidentitybroker.cloudfront.net"
+    "bucketName": "loyaltyone-hostingbucket"
 }
