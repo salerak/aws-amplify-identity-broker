@@ -53,9 +53,6 @@
 	"useDefault": "manual",
 	"authSelections": "userPoolOnly",
 	"resourceName": "amplifyIdentityBrokerAuth",
-	"usernameAttributes": [
-		""
-	],
 	"userPoolGroups": false,
 	"adminQueries": false,
 	"triggers": "{\"CustomMessage\":[\"custom\"]}",

@@ -75,8 +75,6 @@ Parameters:
         Type: String
     resourceName:
         Type: String
-    usernameAttributes:
-        Type: CommaDelimitedList
     userPoolGroups:
         Type: String
     adminQueries:
@@ -196,7 +194,6 @@ Resources:
                     RequireNumbers: false
                     RequireSymbols: false
                     RequireUppercase: false
-            UsernameAttributes: !Ref usernameAttributes
             MfaConfiguration: !Ref mfaConfiguration
             SmsVerificationMessage: !Ref smsVerificationMessage
             SmsConfiguration:
