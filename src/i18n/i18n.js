@@ -35,6 +35,10 @@ export const LanguageTypes = [
 	{
 		"code": "nl",
 		"lang": "Nederlands"
+	},
+	{
+		"code": "es",
+		"lang": "Español"
 	}
 ];
 
