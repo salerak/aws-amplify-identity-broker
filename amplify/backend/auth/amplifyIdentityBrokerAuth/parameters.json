@@ -43,6 +43,7 @@
 		"custom:tos_signed",
 		"custom:tos_version",
 		"custom:newsletter",
+		"custom:memberId",
 		"given_name",
 		"family_name",
 		"address",
