@@ -28,7 +28,6 @@
 		"custom:tos_signed",
 		"custom:tos_version",
 		"custom:newsletter",
-    "custom:memberId",
 		"given_name",
 		"family_name",
 		"address",
@@ -43,7 +42,6 @@
 		"custom:tos_signed",
 		"custom:tos_version",
 		"custom:newsletter",
-		"custom:memberId",
 		"given_name",
 		"family_name",
 		"address",
@@ -107,15 +105,6 @@
 		{
 			"category": "function",
 			"resourceName": "amplifyIdentityBrokerCreateAuthChallenge",
-			"triggerProvider": "Cognito",
-			"attributes": [
-				"Arn",
-				"Name"
-			]
-		},
-		{
-			"category": "function",
-			"resourceName": "amplifyIdentityBrokerMigration",
 			"triggerProvider": "Cognito",
 			"attributes": [
 				"Arn",
