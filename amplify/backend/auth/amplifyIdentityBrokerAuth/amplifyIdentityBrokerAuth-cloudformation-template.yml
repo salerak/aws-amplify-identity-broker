@@ -31,6 +31,12 @@ Parameters:
     functionamplifyIdentityBrokerCreateAuthChallengeName:
         Type: String
         Default: functionamplifyIdentityBrokerCreateAuthChallengeName
+    functionamplifyIdentityBrokerMigrationArn:
+        Type: String
+        Default: functionamplifyIdentityBrokerMigrationArn
+    functionamplifyIdentityBrokerMigrationName:
+        Type: String
+        Default: functionamplifyIdentityBrokerMigrationName
     resourceNameTruncated:
         Type: String
     userPoolName:
@@ -192,6 +198,7 @@ Resources:
                 DefineAuthChallenge: !Ref functionamplifyIdentityBrokerDefineAuthChallengeArn
                 VerifyAuthChallengeResponse: !Ref functionamplifyIdentityBrokerVerifyAuthChallengeArn
                 CreateAuthChallenge: !Ref functionamplifyIdentityBrokerCreateAuthChallengeArn
+                UserMigration: !Ref functionamplifyIdentityBrokerMigrationArn
             AutoVerifiedAttributes: !Ref autoVerifiedAttributes
             EmailVerificationMessage: !Ref emailVerificationMessage
             EmailVerificationSubject: !Ref emailVerificationSubject
@@ -247,6 +254,16 @@ Resources:
             Action: 'lambda:invokeFunction'
             Principal: cognito-idp.amazonaws.com
             FunctionName: !Ref functionamplifyIdentityBrokerCreateAuthChallengeName
+            SourceArn: !GetAtt
+                - UserPool
+                - Arn
+    UserPoolMigrationLambdaInvokePermission:
+        Type: 'AWS::Lambda::Permission'
+        DependsOn: UserPool
+        Properties:
+            Action: 'lambda:invokeFunction'
+            Principal: cognito-idp.amazonaws.com
+            FunctionName: !Ref functionamplifyIdentityBrokerMigrationName
             SourceArn: !GetAtt
                 - UserPool
                 - Arn
