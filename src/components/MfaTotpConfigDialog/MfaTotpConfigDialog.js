@@ -254,7 +254,7 @@ function MfaTotpConfigDialog(props) {
 									includeMargin={true}
 									renderAs={"svg"}
 									imageSettings={{
-										src: "logos/logo-light.png",
+										src: "logos/AIRMILES_NOTAG.png",
 										x: null,
 										y: null,
 										height: 50,
