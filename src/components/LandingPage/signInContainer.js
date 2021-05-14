@@ -317,7 +317,7 @@ const SignInContainer = ({ authState, loaded }) => {
 						{/*
 						  * AmplifyAuthenticator Container
 						  */}
-						<AmplifyAuthenticator usernameAlias="email" >
+						<AmplifyAuthenticator usernameAlias="username" >
 							<ForgotPassword />
 							<Login />
 							<Register />
