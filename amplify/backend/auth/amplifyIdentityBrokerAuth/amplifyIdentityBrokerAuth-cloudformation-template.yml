@@ -31,6 +31,12 @@ Parameters:
     functionamplifyIdentityBrokerCreateAuthChallengeName:
         Type: String
         Default: functionamplifyIdentityBrokerCreateAuthChallengeName
+    functionamplifyIdentityBrokerMigrationArn:
+        Type: String
+        Default: functionamplifyIdentityBrokerMigrationArn
+    functionamplifyIdentityBrokerMigrationName:
+        Type: String
+        Default: functionamplifyIdentityBrokerMigrationName
     resourceNameTruncated:
         Type: String
     userPoolName:
