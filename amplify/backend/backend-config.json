@@ -97,6 +97,12 @@
     }
   },
   "function": {
+  "amplifyIdentityBrokerMigration": {
+    "build": true,
+    "providerPlugin": "awscloudformation",
+    "service": "Lambda",
+    "dependsOn": []
+  },
     "amplifyIdentityBrokerPostDeployment": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -253,12 +259,6 @@
           ]
         }
       ]
-    },
-    "amplifyIdentityBrokerMigration": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": []
     },
     "amplifyIdentityBrokerUserInfo": {
       "build": true,
