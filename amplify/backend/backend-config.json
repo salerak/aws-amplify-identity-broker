@@ -258,22 +258,7 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "amplifyIdentityBrokerAuth",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "auth",
-          "resourceName": "amplifyIdentityBrokerAuth",
-          "attributes": [
-            "AppClientID"
-          ]
-        }
-      ]
+      "dependsOn": []
     },
     "amplifyIdentityBrokerUserInfo": {
       "build": true,
