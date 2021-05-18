@@ -14,11 +14,11 @@ const Login = () => {
 
 	return (
 		<AmplifySignIn className="login"
-			usernameAlias="email"
+			usernameAlias="username"
 			slot="sign-in"
 			formFields={[
 				{
-					type: "email",
+					type: "username",
 					required: true,
 				},
 				{

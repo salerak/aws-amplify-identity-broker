@@ -29,7 +29,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-import logoLight from '../../assets/Logos/logo-light.png';
+import logoLight from '../../assets/Logos/AIRMILES_NOTAG.png';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import ForgotPassword from '../ForgotPassword/ForgotPassword';
@@ -317,7 +317,7 @@ const SignInContainer = ({ authState, loaded }) => {
 						{/*
 						  * AmplifyAuthenticator Container
 						  */}
-						<AmplifyAuthenticator usernameAlias="email" >
+						<AmplifyAuthenticator usernameAlias="username" >
 							<ForgotPassword />
 							<Login />
 							<Register />

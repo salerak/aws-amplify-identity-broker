@@ -11,12 +11,14 @@ import { i18nStrings as de } from './locales/de';
 import { i18nStrings as en } from './locales/en';
 import { i18nStrings as fr } from './locales/fr';
 import { i18nStrings as nl } from './locales/nl';
+import { i18nStrings as es } from './locales/es';
 
 const i18nStrings = {
 	de: de,
 	en: en,
 	fr: fr,
 	nl: nl,
+	es: es
 }
 
 export const LanguageTypes = [

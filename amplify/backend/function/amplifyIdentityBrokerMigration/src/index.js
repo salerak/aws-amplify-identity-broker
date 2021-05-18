@@ -20,7 +20,7 @@ var OLD_CLIENTID = '703d2gqubii5hnk04pl3vep2ht';
 // Fill in UserPoolID about your Idenity Provider you are trying to migrate from
 var OLD_USERPOOLID = 'us-west-2_KMqZc7AhY';
 var AWS = require('aws-sdk');
-AWS.config.update({region: process.env.REGION});
+AWS.config.update({ region: process.env.REGION });
 
 exports.handler = (event, context, callback) => {
 
@@ -73,13 +73,12 @@ exports.handler = (event, context, callback) => {
 	// 		}
 	// 	});
 	// }
-
 	if (event.triggerSource == "UserMigration_Authentication") {
 
 		event.response.userAttributes = {
 			// old_username: user.userName,
 			// 'custom:tenant': user.userAttributes['custom:tenant'],
-			email: "ksalera@loyalty.com",
+			email: event.userName.concat("@loyalty.com"),
 			username: event.userName,
 			email_verified: 'true'
 			// name: user.userAttributes.name ? user.userAttributes.name : '',
@@ -90,7 +89,8 @@ exports.handler = (event, context, callback) => {
 		context.succeed(event);
 		//User has been created and status is also Confirmed. The Client show automatically sign them in.
 
-	} else if (event.triggerSource == "UserMigration_ForgotPassword") {
+	}
+	else if (event.triggerSource == "UserMigration_ForgotPassword") {
 
 		// Lookup the user in your existing user directory service
 		var cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
@@ -99,30 +99,31 @@ exports.handler = (event, context, callback) => {
 			Username: event.userName
 		};
 		// Lookup the user in your existing user directory service and retrieved user attrubites
-		cognitoidentityserviceprovider.adminGetUser(params,
-			function (err, data) {
-				if (data) {
-					console.log('Getting user.');
-					//Start String manipulation to make it the right format for user creation
-					var useratt = data.UserAttributes;
-					useratt.shift();
-					var attributes = {};
-					for (var i = 0; i < useratt.length; i++) {
-						attributes[useratt[i].Name] = useratt[i].Value;
-					}
-					console.log(attributes);
-					event.response.userAttributes = attributes;
-					event.response.messageAction = "SUPPRESS";
-					context.succeed(event);
-					//User has been created and status is also Confirmed. The Client show automatically send them a reset code and move them into the reset password screen.
-				} else {
-					// an error occurred
-					console.log(err, err.stack)
-					// Return error to Amazon Cognito
-					callback("Bad Migration password");
+		cognitoidentityserviceprovider.adminGetUser(params, function (err, data) {
+			if (data) {
+				console.log('Getting user.');
+				//Start String manipulation to make it the right format for user creation
+				var useratt = data.UserAttributes;
+				useratt.shift();
+				var attributes = {};
+				for (var i = 0; i < useratt.length; i++) {
+					attributes[useratt[i].Name] = useratt[i].Value;
 				}
-			});
-	} else {
+				console.log(attributes);
+				event.response.userAttributes = attributes;
+				event.response.messageAction = "SUPPRESS";
+				context.succeed(event);
+				//User has been created and status is also Confirmed. The Client show automatically send them a reset code and move them into the reset password screen.
+			}
+			else {
+				// an error occurred
+				console.log(err, err.stack)
+				// Return error to Amazon Cognito
+				callback("Bad password");
+			}
+		});
+	}
+	else {
 		// Return error to Amazon Cognito
 		callback("Bad triggerSource " + event.triggerSource);
 	}

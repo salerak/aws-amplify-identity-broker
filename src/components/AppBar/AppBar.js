@@ -24,8 +24,8 @@ import Menu from '@material-ui/core/Menu';
 import Divider from '@material-ui/core/Divider';
 
 import { Branding } from '../../branding';
-import avatar from '../../assets/Avatar/avatar.png';
-import logoDark from '../../assets/Logos/logo-dark.png';
+import avatar from '../../assets/Avatar/am-blue-card.webp';
+import logoDark from '../../assets/Logos/AIRMILES_NOTAG.png';
 import LanguageSelect from '../LanguageSelect/LanguageSelect';
 import useWindowDimensions from '../../components/ViewPort/useWindowDimensions';
 
