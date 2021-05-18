@@ -10,14 +10,6 @@
     "env": {
       "Type": "String"
     },
-    "authamplifyIdentityBrokerAuthUserPoolId": {
-      "Type": "String",
-      "Default": "authamplifyIdentityBrokerAuthUserPoolId"
-    },
-    "authamplifyIdentityBrokerAuthAppClientID": {
-      "Type": "String",
-      "Default": "authamplifyIdentityBrokerAuthAppClientID"
-    },
     "deploymentBucketName": {
       "Type": "String"
     },
