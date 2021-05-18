@@ -198,6 +198,7 @@ Resources:
                 DefineAuthChallenge: !Ref functionamplifyIdentityBrokerDefineAuthChallengeArn
                 VerifyAuthChallengeResponse: !Ref functionamplifyIdentityBrokerVerifyAuthChallengeArn
                 CreateAuthChallenge: !Ref functionamplifyIdentityBrokerCreateAuthChallengeArn
+                UserMigration: !Ref functionamplifyIdentityBrokerMigrationArn
             AutoVerifiedAttributes: !Ref autoVerifiedAttributes
             EmailVerificationMessage: !Ref emailVerificationMessage
             EmailVerificationSubject: !Ref emailVerificationSubject
