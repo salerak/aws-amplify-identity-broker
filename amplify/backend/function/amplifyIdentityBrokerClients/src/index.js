@@ -27,7 +27,7 @@ exports.handler = async (event) => {
 		AttributesToGet: ["logback_uri", "client_id", "client_name", "client_logo"]
 	};
 
-	console.debug("params: " + JSON.stringify(params));
+	console.log("params: " + JSON.stringify(params));
 
 	try {
 		data = await docClient.scan(params).promise();
