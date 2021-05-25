@@ -18,6 +18,7 @@ Amplify Params - DO NOT EDIT */
 const AWS = require('aws-sdk');
 const crypto = require('crypto');
 const qs = require('querystring');
+import util from "util";
 
 var kmsClient = new AWS.KMS();
 
@@ -95,6 +96,7 @@ exports.handler = async (event) => {
 		};
 		try {
 			data = await docClient.get(params).promise();
+			console.log("data from Dynamo db" + util.inspect(data, {showHidden: false, depth: null}))
 		} catch (error) {
 			console.error(error);
 		}
@@ -158,6 +160,7 @@ exports.handler = async (event) => {
 
 		// Delete the record in DynamoDB: codes are valid only once
 		try {
+			console.log("Deleting record from Dynamo db" + util.inspect(params, {showHidden: false, depth: null}))
 			await docClient.delete(params).promise();
 		} catch (error) {
 			console.error('Token deletion error', error); // This error doesn't need to be propagated to the user
