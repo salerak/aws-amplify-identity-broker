@@ -18,7 +18,7 @@ Amplify Params - DO NOT EDIT */
 const AWS = require('aws-sdk');
 const crypto = require('crypto');
 const qs = require('querystring');
-import util from "util";
+const util = require('util')
 
 var kmsClient = new AWS.KMS();
 

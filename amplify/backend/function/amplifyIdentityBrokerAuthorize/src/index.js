@@ -21,7 +21,7 @@ const CODE_LIFE = 600000; // How long in milliseconds the authorization code can
 const RECORD_LIFE = 900000; // How long in milliseconds the record lasts in the dynamoDB table (15 minutes)
 const jwt_decode = require('jwt-decode');
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-import util from "util";
+const util = require('util')
 
 var kmsClient = new AWS.KMS();
 var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageKey-" + process.env.ENV;
