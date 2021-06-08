@@ -1,10 +1,8 @@
 import React from "react";
-import axios from "axios";
 import {Button, Chip, Grid, Paper} from '@material-ui/core';
 import {withStyles} from "@material-ui/core/styles";
 import ReactJson from "react-json-view";
 import jwtDecode from "jwt-decode";
-import SignUpDialog from "./SignUpDialog";
 import {
 	CognitoAccessToken,
 	CognitoIdToken, CognitoRefreshToken,
@@ -13,7 +11,7 @@ import {
 	CognitoUserSession
 } from 'amazon-cognito-identity-js';
 import config from './config';
-import ChangeCredentials from "./ChangeCredentials";
+import crypto from "crypto";
 
 const styles = theme => ({
 	actionButtons: {
@@ -37,11 +35,9 @@ const styles = theme => ({
 	},
 });
 
-// const poolBaseUrl = `https://${config.cognito.POOL_NAME}.auth.us-east-1.amazoncognito.com`;
-const poolBaseUrl = `https://${config.cognito.CLOUDFRONT_NAME}.cloudfront.net`;
-const clientId = config.cognito.APP_CLIENT_ID;
+const clientId = config.cognito.WEB_CLIENT_ID;
 const scope = config.cognito.SCOPES;
-const redirectUri = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+const redirectUri = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/`;
 
 class App extends React.Component {
 	constructor(props) {
@@ -59,14 +55,31 @@ class App extends React.Component {
 			openChangePinDialog: false,
 			openChangePasswordDialog: false,
 		}
-
-		this.apiBaseUrl = config.api.baseUrl;
 	}
 
-	getTokens = async (url, apiOptions) => {
-		const response = await axios.get(url, apiOptions);
+	base64URLEncode = (buffer) => {
+		return buffer.toString("base64")
+		.replace(/\+/g, "-")
+		.replace(/\//g, "_")
+		.replace(/=/g, "");
+	}
 
-		for (const [key, value] of Object.entries(response.data)) {
+	sha256 = str => {
+		return crypto.createHash("sha256").update(str).digest();
+	}
+
+	getTokens = async (url, body) => {
+		const response = await fetch(url, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: new URLSearchParams(body),
+		})
+
+		const jsonData = await response.json();
+
+		for (const [key, value] of Object.entries(jsonData)) {
 			sessionStorage.setItem(key, value)
 		}
 
@@ -77,30 +90,30 @@ class App extends React.Component {
 		await this.getUserAttributes(userAccessToken);
 	}
 
-	getAccessTokenWithRefreshToken = async (userRefreshToken) => {
-		const accessTokenWithRefreshTokenUrl = `${this.apiBaseUrl}/auth/refresh`;
-
-		await this.getTokens(accessTokenWithRefreshTokenUrl, {
-			headers: {
-				'Content-Type': 'application/json',
-				'Token': userRefreshToken,
-			}
-		});
-	};
+	// getAccessTokenWithRefreshToken = async (userRefreshToken) => {
+	//   const accessTokenWithRefreshTokenUrl = `${this.apiBaseUrl}/auth/refresh`;
+	//
+	//   await this.getTokens(accessTokenWithRefreshTokenUrl, {
+	//     headers: {
+	//       'Content-Type': 'application/json',
+	//       'Token': userRefreshToken,
+	//     }
+	//   });
+	// };
 
 	getUserAttributes = async (userAccessToken) => {
-		const userAttributesUrl = `${this.apiBaseUrl}/auth/user-attributes`;
+		const userAttributesUrl = `${config.cognito.IDENTITY_BROKER_URL}/oauth2/userInfo`;
 
-		let response = await axios.get(userAttributesUrl, {
+		let response = await fetch(userAttributesUrl, {
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				'Token': userAccessToken,
+				'access_token': userAccessToken,
 			}
 		});
 
 		this.setState({
-			userName: response.data.Username,
-			userAttributes: response.data.UserAttributes,
+			userAttributes: await response.json(),
 		});
 	};
 
@@ -109,24 +122,23 @@ class App extends React.Component {
 		const code = query.get('code') != null ? query.get('code') : ""
 
 		let userAccessToken = sessionStorage.getItem("access_token");
-		let userRefreshToken = sessionStorage.getItem("refresh_token");
+		// let userRefreshToken = sessionStorage.getItem("refresh_token");
 
 		this.syncStateFromSessionStorage();
 
 		if (code.length > 0 && (!userAccessToken || userAccessToken.length
 			=== 0)) {
-			const tokenExchangeUrl = `${this.apiBaseUrl}/auth/exchange`;
+			const tokenExchangeUrl = `${config.cognito.IDENTITY_BROKER_URL}/oauth2/token`;
 
 			await this.getTokens(tokenExchangeUrl, {
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				params: {
-					code: code
-				}
+				grant_type: 'authorization_code',
+				client_id: config.cognito.WEB_CLIENT_ID,
+				redirect_uri: redirectUri,
+				code: code,
+				code_verifier: sessionStorage.getItem('code_verifier'),
 			});
 		} else if (userAccessToken && userAccessToken.length > 0) {
-			await this.getAccessTokenWithRefreshToken(userRefreshToken);
+			// await this.getAccessTokenWithRefreshToken(userRefreshToken);
 			await this.getUserAttributes(userAccessToken);
 		}
 	}
@@ -139,7 +151,7 @@ class App extends React.Component {
 		this.syncStateFromSessionStorage();
 
 		setTimeout(() => {
-			window.location.href = `${poolBaseUrl}/logout?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&logout_uri=${redirectUri}`;
+			window.location.href = `${config.cognito.IDENTITY_BROKER_URL}/logout?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&logout_uri=${redirectUri}`;
 		}, 500);
 	}
 
@@ -163,7 +175,7 @@ class App extends React.Component {
 	getCognitoUser = () => {
 		const cognitoUserPool = new CognitoUserPool({
 			UserPoolId: config.cognito.USER_POOL_ID,
-			ClientId: config.cognito.APP_CLIENT_ID
+			ClientId: config.cognito.WEB_CLIENT_ID
 		});
 		const cognitoUser = new CognitoUser(
 			{Pool: cognitoUserPool, Username: this.state.userName});
@@ -179,84 +191,23 @@ class App extends React.Component {
 		return cognitoUser;
 	}
 
-	onUserConverted = () => {
-		this.setState({
-			openSignUpDialog: false,
-		});
-
-		const cognitoUser = this.getCognitoUser();
-
-		cognitoUser.updateAttributes(
-			[{Name: "custom:user_converted", Value: "true"}],
-			(err, result) => {
-				if (err) {
-					console.log(err);
-				} else {
-					console.log(result);
-					this.logout();
-				}
-			});
-	}
-
-	userConverted = () => {
-		const userConvertedAttr = this.state.userAttributes.filter((attr, _) =>
-			attr.Name === "custom:user_converted" && attr.Value === "true");
-
-		return userConvertedAttr.length === 1;
-	}
-
-	changePassword = async (username, newPassword, logout) => {
-		const setUserPasswordUrl = `${this.apiBaseUrl}/auth/set-user-password`;
-
-		const resp = await axios.post(setUserPasswordUrl, {
-			'username': username,
-			'password': newPassword,
-		}, {
-			headers: {
-				'Content-Type': 'application/json',
-			}
-		});
-
-		if (logout) {
-			this.logout();
-		}
-
-	}
-
-	onPinEntered = async (newPin) => {
-		this.setState({
-			openChangePinDialog: false,
-		});
-
-		let username = this.state.userName;
-		let logout = true;
-
-		if (this.userConverted()) {
-			const collectorNumber = this.state.userAttributes.filter(
-				(attr, _) =>
-					attr.Name === "custom:collector_number");
-
-			username = collectorNumber[0].Value;
-			logout = false;
-		}
-
-		await this.changePassword(username, newPin, logout);
-
-	}
-
-	onPasswordEntered = async (newPassword) => {
-		this.setState({
-			openChangePasswordDialog: false,
-		});
-
-		// Changing passwords is only allowed for converted users so we can go ahead a change it
-		await this.changePassword(this.state.userName, newPassword, true);
-	}
-
 	render() {
+		// Generate a random 32 bytes string and encode
+		let codeVerifier = sessionStorage.getItem('code_verifier')
+		if (!sessionStorage.getItem('code_verifier')) {
+			codeVerifier = this.base64URLEncode(crypto.randomBytes(128));
+			sessionStorage.setItem('code_verifier', codeVerifier)
+		}
+
+		// Generate the code challenge from the verifier
+		const codeChallenge = this.base64URLEncode(this.sha256(codeVerifier));
+
 		const {classes} = this.props;
-		// const loginURL = `${poolBaseUrl}/login?client_id=${clientId}&response_type=code&scope=${scope}&redirect_uri=${redirectUri}`;
-		const loginURL = `${poolBaseUrl}/oauth2/authorize?client_id=${clientId}&response_type=code&scope=${scope}&redirect_uri=${redirectUri}`;
+		const loginURL = [`${config.cognito.IDENTITY_BROKER_URL}/oauth2/authorize?`,
+			`client_id=${clientId}&`, `response_type=code&`, `scope=${scope}&`,
+			`redirect_uri=${redirectUri}&`,
+			`code_challenge=${codeChallenge}&`,
+			`code_challenge_method=S256`].join('');
 
 		const {userName, userAttributes, userIsAuthenticated, userAccessToken, userIdToken} = this.state;
 
@@ -277,68 +228,16 @@ class App extends React.Component {
 					<>
 						<Button color="primary" variant="contained"
 								href={loginURL}>Login</Button>
-						<Button color="primary" variant="contained"
-								onClick={() => this.setState(
-									{openSignUpDialog: true})}>Sign Up</Button>
 					</>
 					}
 					{userIsAuthenticated &&
 					<>
 						<Button color="primary" variant="contained"
-								onClick={() => this.getAccessTokenWithRefreshToken(
-									sessionStorage.getItem("refresh_token"))}>Refresh
-							Tokens</Button>
-						<Button color="primary" variant="contained"
-								onClick={() => this.setState(
-									{openChangePinDialog: true})}>Set
-							Pin</Button>
-						{!this.userConverted() &&
-						<>
-							<Button color="primary" variant="contained"
-									onClick={() => this.setState(
-										{openConvertDialog: true})}>Convert</Button>
-						</>
-						}
-						{this.userConverted() &&
-						<Button color="primary" variant="contained"
-								onClick={() => this.setState(
-									{openChangePasswordDialog: true})}>Set
-							Password</Button>
-						}
-						<Button color="primary" variant="contained"
 								onClick={this.logout}>Logout</Button>
 					</>}
 				</div>
-
-				<SignUpDialog open={this.state.openConvertDialog}
-							  collectorNumber={this.state.userName}
-							  onUserSignUp={this.onUserConverted}
-							  title={"Convert"}
-							  createCollectorRecord={false}
-							  onClose={() => this.setState(
-								  {openConvertDialog: false})}/>
-				<SignUpDialog open={this.state.openSignUpDialog}
-							  collectorNumber={this.state.userName}
-							  onUserSignUp={this.onUserSignUp} title={"Sign Up"}
-							  createCollectorRecord={true}
-							  onClose={() => this.setState(
-								  {openSignUpDialog: false})}/>
-
-				<ChangeCredentials open={this.state.openChangePinDialog}
-								   title={"Change PIN"}
-								   onPasswordAccepted={this.onPinEntered}
-								   digitsOnly={true}
-								   onClose={() => this.setState(
-									   {openChangePinDialog: false})}/>
-				<ChangeCredentials open={this.state.openChangePasswordDialog}
-								   title={"Change Password"}
-								   onPasswordAccepted={this.onPasswordEntered}
-								   digitsOnly={false}
-								   onClose={() => this.setState(
-									   {openChangePasswordDialog: false})}/>
-
 				{userIsAuthenticated && <Grid container>
-					<Grid item xs={6}> r
+					<Grid item xs={6}>
 						<Paper className={classes.tokenDetails}>
 							<ReactJson src={jwtDecode(userAccessToken)}/>
 						</Paper>
@@ -350,6 +249,7 @@ class App extends React.Component {
 					</Grid>
 				</Grid>
 				}
+				{/*<iframe title={"silent-long"} src={loginURL} width={0} height={0}/>*/}
 			</div>
 		);
 	}

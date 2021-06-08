@@ -9,7 +9,7 @@ import {
 	TextField
 } from "@material-ui/core";
 import Alert from '@material-ui/lab/Alert';
-import {Amplify, Auth} from 'aws-amplify';
+import {Auth} from 'aws-amplify';
 import config from './config';
 
 const getRandomCollectorNumber = () => {
@@ -33,12 +33,10 @@ function SignUpDialog(props) {
 		setErrorMessage("");
 
 		try {
-			Amplify.configure({
-				Auth: {
-					region: config.cognito.REGION,
-					userPoolId: config.cognito.USER_POOL_ID,
-					userPoolWebClientId: config.cognito.APP_CLIENT_ID
-				},
+			Auth.configure({
+				region: config.cognito.REGION,
+				userPoolId: config.cognito.USER_POOL_ID,
+				userPoolWebClientId: config.cognito.WEB_CLIENT_ID,
 			});
 
 			const collectorNumber = props.collectorNumber
