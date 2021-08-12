@@ -37,6 +37,13 @@
             EMAIL_SUBJECT: "Actie vereist: Verifieer uw contactgegevens.",
             EMAIL_LINK: "Klik hier"
         },
+		es: {
+			EMAIL_GREETING: "Hola",
+			EMAIL_MESSAGE: "Gracias por crear una cuenta con nosotros. Haga clic en el enlace de abajo para confirmar el registro..",
+			SMS_MESSAGE: "Haga clic en este enlace para verificar su información de contacto: ",
+			EMAIL_SUBJECT: "Acción requerida: Verifique su información de contacto.",
+			EMAIL_LINK: "haga clic aquí"
+		},
     };
     this.language = "en" // default language
 }
@@ -47,6 +54,7 @@ I18N.prototype.setLanguage = function(language){
         case "fr":
         case "de":
         case "nl":
+		case "es":
         case "en":
             this.language = language;
             break;

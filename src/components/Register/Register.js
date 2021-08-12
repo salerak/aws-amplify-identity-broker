@@ -20,11 +20,15 @@ const mapStateToProps = (state) => {
 const Register = (props) => {
 	return (
 		<AmplifySignUp className="register"
-			usernameAlias="email"
+			usernameAlias="username"
 			slot="sign-up"
 			formFields={[
 				{
 					type: "email",
+					required: true,
+				},
+				{
+					type: "username",
 					required: true,
 				},
 				{

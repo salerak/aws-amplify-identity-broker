@@ -14,7 +14,7 @@
 	"emailVerificationSubject": "Your verification code",
 	"emailVerificationMessage": "Your verification code is {####}",
 	"defaultPasswordPolicy": false,
-	"passwordPolicyMinLength": 8,
+	"passwordPolicyMinLength": 6,
 	"passwordPolicyCharacters": [],
 	"requiredAttributes": [
 		"email"
@@ -53,9 +53,6 @@
 	"useDefault": "manual",
 	"authSelections": "userPoolOnly",
 	"resourceName": "amplifyIdentityBrokerAuth",
-	"usernameAttributes": [
-		"email, phone_number"
-	],
 	"userPoolGroups": false,
 	"adminQueries": false,
 	"triggers": "{\"CustomMessage\":[\"custom\"]}",
@@ -113,14 +110,19 @@
 				"Arn",
 				"Name"
 			]
-		}
+		},
+    {
+      "category": "function",
+      "resourceName": "amplifyIdentityBrokerMigration",
+      "triggerProvider": "Cognito",
+      "attributes": [
+        "Arn",
+        "Name"
+      ]
+    }
 	],
-	"hostedUIDomainName": "amplifyidbroker",
-	"authProvidersUserPool": [
-		"Facebook",
-		"Google",
-		"LoginWithAmazon"
-	],
-	"hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}},{\"ProviderName\":\"LoginWithAmazon\",\"authorize_scopes\":\"profile profile:user_id\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"user_id\"}}]",
+	"hostedUIDomainName": "loyaltyoneidbroker",
+	"authProvidersUserPool": [],
+	"hostedUIProviderMeta": "[]",
 	"oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://injection.placeholder.amazon.com/\"],\"LogoutURLs\":[\"https://injection.placeholder.amazon.com/logout\"]}"
 }

@@ -21,6 +21,7 @@ const CODE_LIFE = 600000; // How long in milliseconds the authorization code can
 const RECORD_LIFE = 900000; // How long in milliseconds the record lasts in the dynamoDB table (15 minutes)
 const jwt_decode = require('jwt-decode');
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
+const util = require('util')
 
 var kmsClient = new AWS.KMS();
 var keyIdAlias = "alias/amplifyIdentityBrokerTokenStorageKey-" + process.env.ENV;
@@ -66,6 +67,7 @@ async function getCookiesFromHeader(headers) {
 			list[key] = value;
 		}
 	});
+	console.log("cookies from header" + util.inspect(list, {showHidden: false, depth: null}))
 
 	return list;
 }
@@ -79,6 +81,7 @@ async function verifyClient(client_id, redirect_uri) {
 
 	try {
 		data = await cognitoidentityserviceprovider.describeUserPoolClient(params).promise();
+		console.log("verify cognito clients" + util.inspect(data, {showHidden: false, depth: null}))
 		if (data.UserPoolClient && data.UserPoolClient.CallbackURLs) {
 			for (var i = 0; i < data.UserPoolClient.CallbackURLs.length; i++) {
 				if (data.UserPoolClient.CallbackURLs[i] === redirect_uri) { // If we have a URL that match it is a success
@@ -170,6 +173,7 @@ async function handlePKCE(event) {
 				Username: tokenUsername,
 			}
 		};
+		console.log("authenticationData" + util.inspect(authenticationData, {showHidden: false, depth: null}))
 
 		var authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
 		var poolData = {
@@ -213,6 +217,7 @@ async function handlePKCE(event) {
 	}
 
 	try {
+		console.log("dynamodb auth code params" + util.inspect(params, {showHidden: false, depth: null}))
 		var result = await docClient.put(params).promise();
 	} catch (error) {
 		console.error(error);

@@ -1989,6 +1989,17 @@
           },
           "RestApiId": {
             "Ref": "amplifyIdentityBrokerApi"
+          },
+          "StageDescription": {
+            "MethodSettings": [
+              {
+                "ResourcePath": "/*",
+                "HttpMethod": "*",
+                "DataTraceEnabled": true,
+                "MetricsEnabled": true,
+                "LoggingLevel": "INFO"
+              }
+            ]
           }
         }
       }

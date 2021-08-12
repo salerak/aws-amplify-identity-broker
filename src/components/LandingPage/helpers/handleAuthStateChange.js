@@ -43,7 +43,6 @@ const handleAuthUIStateChange = async (authState) => {
 			localStorage.removeItem(`authorization_code`);
 			localStorage.removeItem(`client-state`);
 		}
-
 		/*
 		 * get the current user session
 		 */

@@ -39,6 +39,15 @@
             "Arn",
             "Name"
           ]
+        },
+        {
+          "category": "function",
+          "resourceName": "amplifyIdentityBrokerMigration",
+          "triggerProvider": "Cognito",
+          "attributes": [
+            "Arn",
+            "Name"
+          ]
         }
       ]
     }
@@ -88,6 +97,12 @@
     }
   },
   "function": {
+  "amplifyIdentityBrokerMigration": {
+    "build": true,
+    "providerPlugin": "awscloudformation",
+    "service": "Lambda",
+    "dependsOn": []
+  },
     "amplifyIdentityBrokerPostDeployment": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -241,27 +256,6 @@
           "attributes": [
             "Name",
             "Arn"
-          ]
-        }
-      ]
-    },
-    "amplifyIdentityBrokerMigration": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "amplifyIdentityBrokerAuth",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "auth",
-          "resourceName": "amplifyIdentityBrokerAuth",
-          "attributes": [
-            "AppClientID"
           ]
         }
       ]

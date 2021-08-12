@@ -27,7 +27,7 @@ const RegisterConfirm = (props) => {
 
 	return (
 		<AmplifyConfirmSignUp className="register-confirm"
-			usernameAlias="email"
+			usernameAlias="username"
 			slot="confirm-sign-up"
 			formFields={[
 				{
